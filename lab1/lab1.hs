@@ -19,3 +19,17 @@ compute :: [Int] -> Int -> [((Int, Int), Int)]
 compute [] _ = []
 compute l k = findIndices l (preCompute l 0) k 1 []
 
+subList :: Int -> Int -> Int -> [Int] -> [Int] --Returns the sublist with the specified index, starts with index 1
+subList _ _ _ [] = []
+subList start end count (x:xs) = curr ++ subList start end (count + 1) xs where curr = if count >= start && count <= end then [x] else []
+
+solutionString :: [((Int, Int), Int)] -> [Int] -> String
+solutionString [] _ = ""
+solutionString (((start, end), size):xs) l = show size ++ "   " ++ show start ++ "   " ++ show end ++ "   " ++ (show (subList start end 1 l)) ++ "\n" ++ solutionString xs l 
+
+printSolution :: [Int] -> Int -> String
+printSolution [] _ = error "List needs to be non-empty"
+printSolution l k = "size i   j    sublist \n" ++ solutionString (compute l k) l 
+
+solve l k = putStr (printSolution l k )
+
