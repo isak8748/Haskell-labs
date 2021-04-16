@@ -110,3 +110,17 @@ simplify (Op oper left right) =
       ("/",e,Const 1) -> e
       ("-",le,re)     -> if left==right then Const 0 else Op "-" le re
       (op,le,re)      -> Op op le re
+
+mkfun :: (EXPR, EXPR) -> (Float ->  Float)
+mkfun (body, Var id) = \x -> eval body [(id, x)]
+
+findzero :: String -> String -> Float -> Float
+findzero variable body x0 = newtonstep function derivative x0
+  where
+    function = mkfun ((parse body), Var variable)
+    derivative = mkfun (diff (parse variable) (parse body), Var variable)
+
+newtonstep :: (Float -> Float) -> (Float -> Float) -> Float -> Float
+newtonstep function derivative xprev = if abs (xprev - newx) <= 0.0001 then newx else newtonstep function derivative newx
+  where 
+    newx = xprev - (function xprev)/(derivative xprev)
