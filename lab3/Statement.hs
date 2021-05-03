@@ -80,7 +80,7 @@ instance Parse Statement where
   toString (Assignment id expr) = id ++ " := " ++ Expr.toString expr ++ ";\n"
   toString (If cond thenStmts elseStmts) = "if " ++ Expr.toString cond ++ " then\n" ++ toString thenStmts ++ "else\n" ++ toString elseStmts
   toString (Skip) = "skip;\n"
-  toString (While cond stmt) = "while " ++ Expr.toString cond ++ " do\n" ++ toString stmt  ++ "\n"
+  toString (While cond stmt) = "while " ++ Expr.toString cond ++ " do\n" ++ toString stmt
   toString (Begin l) = "begin\n" ++ listToString l ++ "end\n"
   toString (Read id) = "read " ++ id ++ ";\n"
   toString (Write expr) = "write " ++ Expr.toString expr ++ ";\n"
