@@ -17,7 +17,7 @@ p = fromString  ("\
 \  end")
 
 p1 = fromString  ("\
-\read n;\
+\read n;\ 
 \read b;\
 \m := 1;\
 \s := 0;\

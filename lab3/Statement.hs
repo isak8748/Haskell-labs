@@ -70,9 +70,7 @@ exec (Write expr: stmts) dict input =
     (Expr.value expr dict) : (exec stmts dict input)
 
 exec (Repeat stmt cond: stmts) dict input =
-    if (Expr.value cond dict)<=0
-    then exec (stmt : (Repeat stmt cond: stmts)) dict input
-    else exec (stmt : stmts) dict input 
+    exec (stmt : (If cond (Skip) (Repeat stmt cond):stmts)) dict input
 
 instance Parse Statement where
   --parse = error "Statement.parse not implemented"
